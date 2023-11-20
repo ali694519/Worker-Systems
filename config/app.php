@@ -160,6 +160,8 @@ return [
          * Package Service Providers...
          */
 
+
+
         /*
          * Application Service Providers...
          */
@@ -169,6 +171,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\CrudRepoProvider::class,
+
+
 
         Yousefpackage\LaraBackup\Providers\LaraBackupServiceProvider::class,
         Yousefpackage\LaraBackup\Providers\BackupServiceProvider::class,
@@ -192,6 +196,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+
     ])->toArray(),
 
 ];

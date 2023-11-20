@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ClientOrderController;
 use App\Http\Controllers\WorkerReviewController;
 use App\Http\Controllers\WorkerProfileController;
@@ -18,11 +19,6 @@ use App\Http\Controllers\{AdminController,ClientController,WorkerController,Post
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::prefix('auth')->group(function() {
     Route::controller(AdminController::class)
     ->prefix('admin')
@@ -66,8 +62,6 @@ Route::prefix('worker')
 ->middleware('auth:worker')
 ->group(function () {
 
-    // Route::get('export', [FileController::class, 'export']);
-    // Route::post('import', [FileController::class, 'import']);
     Route::get('pending/orders', [ClientOrderController::class, 'workerOrder']);
     Route::put('update/order/{id}', [ClientOrderController::class, 'update']);
     Route::get('/review/post/{postId}', [WorkerReviewController::class, 'postRate']);
@@ -81,7 +75,7 @@ Route::prefix('worker')
     Route::controller(PostController::class)
     ->prefix("worker/post/")
     ->group(function() {
-        Route::post("/add","store") ->middleware("auth:worker");
+        Route::post("/add","store")->middleware("auth:worker");
         Route::get("/all","index")->middleware("auth:admin");
         Route::get("/approved","approved");
         Route::get("/show/{post}","show");
@@ -108,8 +102,12 @@ Route::prefix('client')->group(function () {
         Route::post('/request', 'addOrder')->middleware('auth:client');
         Route::get('/approved', 'approvedOrders')->middleware('auth:client');
     });
-    //  Route::controller(PaymentController::class)->group(function () {
-    //     Route::get('/pay/{serviceId}', 'pay');
-    // });
+
+     Route::controller(PaymentController::class)->group(function () {
+        Route::any('/checkout/{id}', 'checkout')->name('checkout');
+        Route::get('/success', 'success')->name('checkout.success');
+        Route::get('/cancel', 'cancel')->name('checkout.cancel');
+    });
+
 });
 

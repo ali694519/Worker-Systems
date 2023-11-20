@@ -21,6 +21,6 @@ class PostFilter
                         $query->where('name', 'like', "%{$value}%");
                     });
             })
-        ];
+        ]; 
     }
 }

@@ -38,7 +38,6 @@ class PostController extends Controller
             ->with('worker:id,name')
             ->where('status', 'approved')
             ->get(['id', 'content', 'price', 'worker_id']);
-
         return response()->json([
             "posts" => $posts
         ]);
