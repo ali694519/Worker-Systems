@@ -23,7 +23,7 @@ class PostStatusRequest extends FormRequest
     {
         return [
             "post_id" => "required|exists:posts,id",
-            "status" => "required|in:approved,rejected",
+            "status" => "required|in:approved,rejected,pending",
             "rejected_reason" => "required_if:status,rejected",
         ];
     }

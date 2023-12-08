@@ -18,7 +18,6 @@ class WorkerProfileController extends Controller
         ->makeHidden('status','verified_at','verification_token');
         $reviews = WorkerReview::WhereIn("post_id",$worker->posts()->pluck("id"))->get();
         $rate = round($reviews->sum('rate')/ $reviews->count(),1);
-
         return response()->json([
             "data"=>array_merge($worker->toArray(),['rate'=>$rate]),
         ],200);
