@@ -25,7 +25,7 @@ class WorkerProfileController extends Controller
 
     public function edit() {
         return response()->json([
-            "worker"=>Worker::find(auth('worker')->id())
+            "Worker"=>Worker::find(auth('worker')->id())
         ]);
     }
 
